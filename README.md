@@ -17,7 +17,8 @@ Please note that client-side tests are NOT current - they require CSS mocks befo
 
 ### Prerequisites
 * npm
-Usage
+
+### Usage
 Clone repo
 git clone https://github.com/HRR49HouseStark/tours.git
 Install packages
@@ -29,12 +30,13 @@ Run seeding script
 npm run seed
 This populates a small table of agents and a large table of user tour requests.
 
-Development
+### Development
 For a server which automatically reloads on bundle compilation AND server changes:
 
 Run npm run devBuild in one terminal
 Separately run npm run devStart in another terminal
-Production
+
+### Production
 Run npm run production to automatically compile latest changes, then run the app.
 
 ### Installation
