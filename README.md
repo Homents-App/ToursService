@@ -50,6 +50,17 @@ git clone https://github.com/HRR49HouseStark/tours.git
 npm install
 ```
 
+### API
+
+Action                       | Method | URL
+---------------------------- | ------ | --------------------
+Create new tour request.     | POST   | '/api/tours/requests'
+Get all tour reqs for id     | GET    | '/api/tours/requests'
+Update existing tour request | PUT    | '/api/tours/requests'
+Delete existing tour request | DELETE | '/api/tours/requests'
+
+
+
 ## License
 
 Distributed under MIT License. See `LICENSE` for more information.
