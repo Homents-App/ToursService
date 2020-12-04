@@ -9,7 +9,7 @@ const getRequests = () => User.find({}, 'date time').exec();
 const insertUser = (listingId, user) => {
   user.listing_id = listingId;
   // change to also check listing_id matches before updating
-  return User.findOne({ name: user.name })
+  return User.findOne({ name: user.name, listing_id: user.listing_id })
   .then((existingUser) => {
     if (!existingUser) {
       console.log(`Inserted ${user.name} into the database for property id ${user.listing_id}!`);

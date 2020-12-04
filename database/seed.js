@@ -32,6 +32,7 @@ const createFakeUsers = (agents) => {
       time: `${hour}:${minutes} ${ampm}`,
       call: calls[Math.floor(Math.random() * 2)],
       agent: agents[Math.floor(Math.random() * agents.length)].name,
+      listing_id: Math.floor(Math.random * 1000000);
     };
     users.push(fakeUser);
   }
