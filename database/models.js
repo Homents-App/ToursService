@@ -6,15 +6,19 @@ const getUsers = () => User.find();
 const getRequests = () => User.find({}, 'date time').exec();
 
 // Inserts user into database if not already there.
-const insertUser = (user) => User.findOne({ name: user.name })
+const insertUser = (listingId, user) => {
+  user.listing_id = listingId;
+  // change to also check listing_id matches before updating
+  return User.findOne({ name: user.name, listing_id: user.listing_id })
   .then((existingUser) => {
     if (!existingUser) {
-      console.log(`Inserted ${user.name} into the database!`);
+      console.log(`Inserted ${user.name} into the database for property id ${user.listing_id}!`);
       return User.create(user);
     }
     console.log(`Updated ${user.name}'s entry!`);
     return User.findOneAndUpdate({ name: user.name }, user);
   });
+}
 
 // Get list of all agents.
 const getAgents = () => Agent.find().exec();
