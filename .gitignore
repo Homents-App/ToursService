@@ -28,3 +28,6 @@ toursKey.pem
 
 # login bash script
 login.sh
+
+# ignore all seed CSV files
+*.csv

@@ -10,7 +10,10 @@
     "production": "webpack --config webpack.config.js && node server/server.js",
     "devbuild": "webpack --config webpack.config.js --watch",
     "devstart": "nodemon server/server.js --watch server --watch client/public",
-    "seed": "node database/runSeed.js"
+    "seed": "node database/runSeed.js",
+    "csv-agents": "node csvSeedScripts/agentsSeedScript.js",
+    "csv-listings": "node csvSeedScripts/listingsSeedScript.js",
+    "csv-requests": "node csvSeedScripts/requestsSeedScript.js"
   },
   "repository": {
     "type": "git",
