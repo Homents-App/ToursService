@@ -38,7 +38,7 @@ const range = [today, next].map((date) => {
 });
 
 
-const createFakeRequest = (index) => {
+const createFakeRequest = () => {
 
   const date = new Date(faker.date.between(range[0], range[1]));
   const hour = date.getHours() % 12;
@@ -46,7 +46,6 @@ const createFakeRequest = (index) => {
   const ampm = date.getHours() > 11 ? 'PM' : 'AM';
 
   return '' +
-    index + ',' +
     faker.name.findName() + ',' +
     faker.phone.phoneNumber() + ',' +
     faker.internet.email() + ',' +
@@ -59,7 +58,7 @@ const createFakeRequest = (index) => {
 
 const file = fs.createWriteStream(requests);
 
-file.write('id, name, number, email, type, date, time, call, listing_id\n');
+file.write('name, number, email, type, date, time, call, listing_id\n');
 
 let q = 0;
 
@@ -75,7 +74,7 @@ const writer = () => {
     } else if (q % 1e6 === 0) {
       console.log('request #' + q + ' created');
     }
-    ok = file.write(createFakeRequest(q));
+    ok = file.write(createFakeRequest());
   }
   if (q < 2e7) {
     file.once('drain', writer);
