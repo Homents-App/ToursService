@@ -1,14 +1,21 @@
 const { pool } = require('./database.js');
 
 
+const getRequests = (id) => {
+  return pool
+    .query('SELECT * FROM requests INNER JOIN listings ON requests.listing_id = listings.id WHERE requests.listing_id = $1;', [id])
+    .then(res => {
+      console.log(res.rows);
+    })
+    .catch((err) => console.error(err.stack));
+};
 
-// Gets list of all users.
-const getUsers = () => User.find();
 
-const getRequests = (id) => User.find({id: id}, 'date time').exec();
+
+
 
 // Inserts user into database if not already there.
-const insertUser = (listingId, user) => {
+const insertRequest = (listingId, request) => {
   user.listing_id = listingId;
   // change to also check listing_id matches before updating
   return User.findOne({ name: user.name, listing_id: user.listing_id })
@@ -23,22 +30,21 @@ const insertUser = (listingId, user) => {
 }
 
 // Get list of all agents.
-const getAgents = () => Agent.find().exec();
+const getAgents = (id) => Agent.find({listing_id: id}).exec();
 
 // --------------- Seeding Scripts --------------- //
-const seedUsers = (users) => User.deleteMany({})
-  .then(() => User.insertMany(users))
-  .catch((err) => console.error(err));
+// const seedUsers = (users) => User.deleteMany({})
+//   .then(() => User.insertMany(users))
+//   .catch((err) => console.error(err));
 
-const seedAgents = (agents) => Agent.deleteMany({})
-  .then(() => Agent.insertMany(agents))
-  .catch((err) => console.error(err));
+// const seedAgents = (agents) => Agent.deleteMany({})
+//   .then(() => Agent.insertMany(agents))
+//   .catch((err) => console.error(err));
 
 module.exports = {
-  getUsers,
   getRequests,
   getAgents,
-  insertUser,
-  seedUsers,
-  seedAgents,
+  insertRequest,
+  // seedUsers,
+  // seedAgents,
 };
