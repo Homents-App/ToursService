@@ -25,10 +25,13 @@ app.post('/api/tours/:id/requests', (req, res) => {
   });
 });
 
-// Get date and time of every request in the database
-app.get('/api/tours/requests', (req, res) => db.getRequests()
+// Get date and time of every request in db for the given property
+app.get('/api/tours/:id/requests', (req, res) => {
+  const id = req.params.id;
+  db.getRequests(id)
   .then((results) => res.status(200).send(results))
-  .catch((err) => res.status(500).send(err)));
+  .catch((err) => res.status(500).send(err));
+});
 
   // Update date and time of user tour in db (fix function)
 app.put('/api/tours/requests', (req, res) => db.getRequests()

@@ -3,7 +3,7 @@ const { User, Agent } = require('./database.js');
 // Gets list of all users.
 const getUsers = () => User.find();
 
-const getRequests = () => User.find({}, 'date time').exec();
+const getRequests = (id) => User.find({id: id}, 'date time').exec();
 
 // Inserts user into database if not already there.
 const insertUser = (listingId, user) => {

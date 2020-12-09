@@ -31,9 +31,8 @@ const getPhotoURL = () => {
 };
 const titles = ['Listing', 'Premier'];
 
-const createFakeAgent = (index) => {
+const createFakeAgent = () => {
   return '' +
-    index + ',' +
     faker.name.findName() + ',' +
     titles[Math.floor(Math.random() * titles.length)] + ',' +
     faker.phone.phoneNumber() + ',' +
@@ -45,7 +44,7 @@ const createFakeAgent = (index) => {
 
 const file = fs.createWriteStream(agents);
 
-file.write('id, name, title, number, stars, reviews, sales, photo\n')
+file.write('name, title, number, stars, reviews, sales, photo\n')
 
 for (var i = 1; i <= 10000; i++) {
   if (i === 1) {
@@ -55,7 +54,7 @@ for (var i = 1; i <= 10000; i++) {
   } else if (i % 1000 === 0) {
     console.log('agent #' + i + ' created');
   }
-  file.write(createFakeAgent(i));
+  file.write(createFakeAgent());
 }
 
 file.end();

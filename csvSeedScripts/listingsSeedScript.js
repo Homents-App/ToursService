@@ -26,7 +26,7 @@ server.listen(8001);
 
 
 
-const createFakeListing = (index) => {
+const createFakeListing = () => {
 
   let agents = [];
   let random = 0;
@@ -36,16 +36,15 @@ const createFakeListing = (index) => {
   }
 
   for (var i = 0; i < 4; i++) {
-    random = randomFinder(1e5);
+    random = randomFinder(1e4);
     // ensures 4 unique agents per listing only
     while (agents.includes(random)) {
-      random = randomFinder(1e5);
+      random = randomFinder(1e4);
     }
     agents.push(random);
   }
 
   return '' +
-    index + ',' +
     agents[0] + ',' +
     agents[1] + ',' +
     agents[2] + ',' +
@@ -54,7 +53,7 @@ const createFakeListing = (index) => {
 
 const file = fs.createWriteStream(listings);
 
-file.write('i, agent1, agent2, agent3, agent4\n');
+file.write('agent1, agent2, agent3, agent4\n');
 
 for (var i = 1; i <= 1e7; i++) {
   if (i === 1) {
@@ -64,7 +63,7 @@ for (var i = 1; i <= 1e7; i++) {
   } else if (i % 1e6 === 0) {
     console.log('listing #' + i + ' created');
   }
-  file.write(createFakeListing(i));
+  file.write(createFakeListing());
 }
 
 file.end();
