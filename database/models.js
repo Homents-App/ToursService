@@ -1,4 +1,6 @@
-const { User, Agent } = require('./database.js');
+const { pool } = require('./database.js');
+
+
 
 // Gets list of all users.
 const getUsers = () => User.find();
