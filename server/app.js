@@ -19,7 +19,7 @@ app.get('/', (req, res) => {
 // Inserts a user's tour request to the database
 app.post('/api/tours/:id/requests', (req, res) => {
   const id = req.params.id;
-  db.insertUser(id, req.body)
+  db.insertRequest(id, req.body)
   .then(() => res.sendStatus(200))
   .catch((err) => {
     console.error(err);

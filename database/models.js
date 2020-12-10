@@ -14,20 +14,38 @@ const getRequests = (id) => {
 
 
 
-// Inserts user into database if not already there.
+// Inserts request for a certain listing id and email into database if not already there.
 const insertRequest = (listingId, request) => {
-  user.listing_id = listingId;
-  // change to also check listing_id matches before updating
-  return User.findOne({ name: user.name, listing_id: user.listing_id })
-  .then((existingUser) => {
-    if (!existingUser) {
-      console.log(`Inserted ${user.name} into the database for property id ${user.listing_id}!`);
-      return User.create(user);
-    }
-    console.log(`Updated ${user.name}'s entry!`);
-    return User.findOneAndUpdate({ name: user.name }, user);
+  request.listing_id = Number(listingId);
+  console.log('request to insert: ', request);
+
+  return pool
+    .query('SELECT * FROM requests WHERE requests.email = $1 AND requests.listing_id = $2', [request.email, listingId])
+    .then((results) => {
+      console.log('query results: ', results.rows);
+      if (results.rows.length === 0) {
+        return pool
+          .query('INSERT INTO requests (name, number, email, type, date, time, call, listing_id) VALUES ($1, $2, $3, $4, $5, $6, $7, $8);', [request.name, request.number, request.email, request.type, request.date, request.time, request.call, request.listing_id])
+          .then((res) => {
+            console.log(`Inserted tour request for ${request.email} into the database for property id ${request.listing_id}!: `, res.rows);
+          })
+          .catch((err) => console.error('error inserting', err.stack));
+      } else {
+        console.log('Request for email and listing already present; use update method instead');
+        return results;
+      }
   });
-}
+};
+
+// FUTURE OPTIMIZATION: USING ON CONFLICT DO UPDATE
+// return pool
+// .query('INSERT INTO requests (name, number, email, type, date, time, call, listing_id) VALUES ($1, $2, $3, $4, $5, $6, $7, $8) ON CONFLICT requests.email DO UPDATE SET name=$1, number=$2, type=$4, date=$5, time=$6, call=$7;', [request.name, request.number, request.email, request.type, request.date, request.time, request.call, request.listing_id])
+// .then((res) => {
+//   console.log(`Inserted tour request for ${request.email} into the database for property id ${request.listing_id}!: `, res.rows);
+// })
+// .catch((err) => console.error('error inserting', err.stack));
+
+
 
 // Get list of all agents.
 const getAgents = (id) => Agent.find({listing_id: id}).exec();
