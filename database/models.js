@@ -10,9 +10,14 @@ const getRequests = (id) => {
     .catch((err) => console.error(err.stack));
 };
 
-
-
-
+const getAgents = (id) => {
+  return pool
+  .query('SELECT * FROM agents INNER JOIN listings ON (agents.id = listings.agent1 OR Agents.id = listings.agent2 OR Agents.id = listings.agent3 OR Agents.id = listings.agent4) WHERE listings.id = $1;', [id])
+  .then(res => {
+    console.log(res.rows);
+  })
+  .catch((err) => console.error(err.stack));
+};
 
 // Inserts request for a certain listing id and email into database if not already there.
 const insertRequest = (listingId, request) => {
@@ -45,24 +50,29 @@ const insertRequest = (listingId, request) => {
 // })
 // .catch((err) => console.error('error inserting', err.stack));
 
+const updateRequest = (id, request) => {
+  return pool
+    .query('UPDATE requests SET name=$1, number=$2, type=$4, date=$5, time=$6, call=$7 WHERE listing_id=$8 AND email=$3;', [request.name, request.number, request.email, request.type, request.date, request.time, request.call, id])
+    .then(res => {
+      console.log(res.rows);
+    })
+    .catch((err) => console.error(err.stack));
+};
 
+const deleteRequest = (id, userEmail) => {
+  return pool
+    .query('DELETE FROM requests WHERE email=$1 AND listing_id=$2;', [userEmail, id])
+    .then(res => {
+      console.log(res.rows);
+    })
+    .catch((err) => console.error(err.stack));
+};
 
-// Get list of all agents.
-const getAgents = (id) => Agent.find({listing_id: id}).exec();
-
-// --------------- Seeding Scripts --------------- //
-// const seedUsers = (users) => User.deleteMany({})
-//   .then(() => User.insertMany(users))
-//   .catch((err) => console.error(err));
-
-// const seedAgents = (agents) => Agent.deleteMany({})
-//   .then(() => Agent.insertMany(agents))
-//   .catch((err) => console.error(err));
 
 module.exports = {
   getRequests,
   getAgents,
   insertRequest,
-  // seedUsers,
-  // seedAgents,
+  updateRequest,
+  deleteRequest
 };

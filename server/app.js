@@ -49,7 +49,7 @@ app.get('/api/tours/:id/requests', (req, res) => {
   // Update date and time of user tour in db (fix function)
 app.put('/api/tours/:id/requests', (req, res) => {
   const id = req.params.id;
-  db.getRequests(id, req.body)
+  db.updateRequest(id, req.body)
   .then((results) => res.status(200).send(results))
   .catch((err) => res.status(500).send(err));
 });
@@ -57,8 +57,9 @@ app.put('/api/tours/:id/requests', (req, res) => {
 // Delete a date and time tour request for a user in db (fix function)
 app.delete('/api/tours/:id/requests', (req, res) => {
   const id = req.params.id;
-  db.getRequests(id)
-  .then((results) => res.status(200).send(results))
+  const userEmail = req.body.email;
+  db.deleteRequest(id, userEmail)
+  .then((response) => res.status(200).send(response))
   .catch((err) => res.status(500).send(err));
 });
 
