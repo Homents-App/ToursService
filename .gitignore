@@ -31,3 +31,6 @@ login.sh
 
 # ignore all seed CSV files
 *.csv
+
+#config file for New Relic
+newrelic.js

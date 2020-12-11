@@ -26,13 +26,17 @@ const App = () => {
   const [curAgent, setAgent] = useState('');
 
   useEffect(() => {
-    getData(setRequests, setAgents);
+    var path = window.location.pathname.split('/');
+    console.log('path: ', path);
+    var id = 5;
+    getData(setRequests, setAgents, id);
   }, []);
 
   const submit = (form) => {
     const toSubmit = !tour ? { curAgent, ...form }
       : { date: currentDate, type: digital, time, ...form };
-    submitForm({ call, ...toSubmit }).then(() => getData(setRequests, setAgents));
+    var id = 5;
+    submitForm({ call, id, ...toSubmit }).then(() => getData(setRequests, setAgents, id));
   };
 
   return (

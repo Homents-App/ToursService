@@ -2,15 +2,19 @@ import axios from 'axios';
 
 // ---------------------------- API CALLS ---------------------------- //
 
-export const getData = (setRequests, setAgents) => axios.get('/api/tours/requests')
+export const getData = (setRequests, setAgents, id) => axios.get(`/api/tours/${id}/requests`)
   .then((response) => {
+    console.log('response from requests api: ', response);
     setRequests(response.data);
-    return axios.get('/api/tours/agents');
+    return axios.get(`/api/tours/${id}/agents`);
   })
-  .then((response) => setAgents(response.data))
+  .then((response) => {
+    console.log('response from agents api: ', response);
+    setAgents(response.data);
+  })
   .catch((err) => console.log(err));
 
-export const submitForm = (toSend) => axios.post('/api/tours/requests', toSend)
+export const submitForm = (id, toSend) => axios.post(`/api/tours/${id}/requests`, toSend)
   .then(() => console.log(`Sent ${toSend.name}'s request to the database!`))
   .catch((err) => console.log(err));
 
