@@ -4,12 +4,10 @@ import axios from 'axios';
 
 export const getData = (setRequests, setAgents, id) => axios.get(`/api/tours/${id}/requests`)
   .then((response) => {
-    console.log('response from requests api: ', response);
     setRequests(response.data);
     return axios.get(`/api/tours/${id}/agents`);
   })
   .then((response) => {
-    console.log('response from agents api: ', response);
     setAgents(response.data);
   })
   .catch((err) => console.log(err));

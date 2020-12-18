@@ -27,7 +27,7 @@ const App = () => {
 
   useEffect(() => {
     var path = window.location.pathname.split('/');
-    console.log('path: ', path);
+    // console.log('path: ', path);
     var id = 5;
     getData(setRequests, setAgents, id);
   }, []);

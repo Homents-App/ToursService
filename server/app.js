@@ -20,7 +20,10 @@ app.get('/', (req, res) => {
 app.post('/api/tours/:id/requests', (req, res) => {
   const id = req.params.id;
   db.insertRequest(id, req.body)
-  .then(() => res.sendStatus(200))
+  .then((requests) => {
+    console.log('requests: ', requests);
+    res.status(200).send(requests);
+  })
   .catch((err) => {
     console.error(err);
     res.status(500).send(err);

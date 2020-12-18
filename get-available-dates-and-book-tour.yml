@@ -1,0 +1,32 @@
+config:
+  target: "http://localhost:3001"
+  phases:
+    - duration: 60
+      arrivalRate: 1
+      name: "1 RPS"
+    - duration: 60
+      arrivalRate: 10
+      name: "10 RPS"
+    - duration: 60
+      arrivalRate: 100
+      name: "100 RPS"
+    - duration: 60
+      arrivalRate: 1000
+      name: "1000 RPS"
+scenarios:
+  - flow:
+    - get:
+        url: "/api/tours/{{$randomNumber(9000000,10000000)}}/requests"
+    - get:
+        url: "/api/tours/{{$randomNumber(9000000,10000000)}}/agents"
+    - post:
+        url: "/api/tours/{{$randomNumber(9000000,10000000)}}/requests"
+        json:
+          name: "Leah"
+          number: "4444444444"
+          email: "aaaa@aaaaaaaa.com"
+          type: "in-person"
+          date: "12/20/2020"
+          time: "3:00 PM"
+          call: false
+          listing_id: 9600000

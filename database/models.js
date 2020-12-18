@@ -5,7 +5,7 @@ const getRequests = (id) => {
   return pool
     .query('SELECT * FROM requests INNER JOIN listings ON requests.listing_id = listings.id WHERE requests.listing_id = $1;', [id])
     .then(res => {
-      console.log(res.rows);
+      return res.rows;
     })
     .catch((err) => console.error(err.stack));
 };
@@ -14,7 +14,7 @@ const getAgents = (id) => {
   return pool
   .query('SELECT * FROM agents INNER JOIN listings ON (agents.id = listings.agent1 OR Agents.id = listings.agent2 OR Agents.id = listings.agent3 OR Agents.id = listings.agent4) WHERE listings.id = $1;', [id])
   .then(res => {
-    console.log(res.rows);
+    return res.rows;
   })
   .catch((err) => console.error(err.stack));
 };
