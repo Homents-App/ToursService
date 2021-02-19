@@ -1,69 +1,17 @@
-# tours
+# Tours
 
 ## About The Project
-A student recreation of a Trulia page. Tour request module. Visit http://34.229.154.23:3001/ to take a look at the isolated module!
+A tour booking module stress-tested with New Relic, Loader.io and Artillery, and scaled for production. 
+Initial: 1000 RPS at a 3-second response time on a single AWS EC2 T2 micro-instance
+Final: 2000 RPS, 238 ms response time, 4 T2 micro-instances. 
 
-## Table of Contents
-
-* [About the Project](#about-the-project)
-* [Getting Started](#getting-started)
-  * [Prerequisites](#prerequisites)
-  * [Installation](#installation)
-* [License](#license)
-* [Contact](#contact)
-
-## Getting Started
-Please note that client-side tests are NOT current - they require CSS mocks before they will function again.
-
-### Prerequisites
-* npm
-
-### Usage
-Clone repo
-git clone https://github.com/HRR49HouseStark/tours.git
-Install packages
-npm install
-Install mongoDB Consult the awsNotes.txt file for information on how to do this on Linux distributions.
-
-Run seeding script
-
-npm run seed
-This populates a small table of agents and a large table of user tour requests.
-
-### Development
-For a server which automatically reloads on bundle compilation AND server changes:
-
-Run npm run devBuild in one terminal
-Separately run npm run devStart in another terminal
-
-### Production
-Run npm run production to automatically compile latest changes, then run the app.
-
-### Installation
-1. Clone repo
-```sh
-git clone https://github.com/HRR49HouseStark/tours.git
-```
-
-2. Install packages
-```sh
-npm install
-```
-
-### API
-
-Action                       | Method | URL
----------------------------- | ------ | --------------------
-Create new tour request.     | POST   | '/api/tours/requests'
-Get all tour reqs for id     | GET    | '/api/tours/requests'
-Update existing tour request | PUT    | '/api/tours/requests'
-Delete existing tour request | DELETE | '/api/tours/requests'
+- Achieved fast query times for structured data with multiple one-to-many relationships with a PostgreSQL database
+- Improved query speed for last 10% of database from 14 sec to under 10 ms by indexing table ID
+- Scaled deployed app with NGINX load balancing
 
 
+Final test results (Loader.io): 
+![image](https://user-images.githubusercontent.com/70930077/108565609-339bc300-72c2-11eb-903f-b878b46c12b2.png)
 
-## License
-
-Distributed under MIT License. See `LICENSE` for more information.
-
-## Contact
-Michael Chen - mikatpt@gmail.com
+Final load test monitoring page (New Relic):
+![image](https://user-images.githubusercontent.com/70930077/108565548-19fa7b80-72c2-11eb-8afa-e3d23bc65cf6.png)
