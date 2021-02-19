@@ -1,7 +1,7 @@
 # Tours
 
 ## About The Project
-A tour booking module stress-tested with New Relic, Loader.io and Artillery, and scaled for production. 
+A tour booking module for a real estate listings site, stress-tested with Artillery, New Relic, and Loader.io, and scaled for production. 
 Initial: 1000 RPS at a 3-second response time on a single AWS EC2 T2 micro-instance
 Final: 2000 RPS, 238 ms response time, 4 T2 micro-instances. 
 
